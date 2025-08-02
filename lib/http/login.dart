@@ -15,7 +15,7 @@ import 'package:encrypt/encrypt.dart';
 class LoginHttp {
   static final String deviceId = LoginUtils.genDeviceId();
   static final String buvid = LoginUtils.buvid;
-  static final Map<String, String> headers = {
+  static final headers = {
     'buvid': buvid,
     'env': 'prod',
     'app-key': 'android_hd',
@@ -30,8 +30,8 @@ class LoginHttp {
   static Future<Map<String, dynamic>> getHDcode() async {
     var params = {
       // 'local_id': 'Y952A395BB157D305D8A8340FC2AAECECE17',
-      'local_id': '0',
-      'ts': (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
+      'local_id': 0,
+      'ts': DateTime.now().millisecondsSinceEpoch ~/ 1000,
       'platform': 'android',
       'mobi_app': 'android_hd',
     };
@@ -48,8 +48,8 @@ class LoginHttp {
   static Future codePoll(String authCode) async {
     var params = {
       'auth_code': authCode,
-      'local_id': '0',
-      'ts': (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
+      'local_id': 0,
+      'ts': DateTime.now().millisecondsSinceEpoch ~/ 1000,
     };
     AppSign.appSign(params);
     var res = await Request().post(Api.qrcodePoll, queryParameters: params);
@@ -95,13 +95,13 @@ class LoginHttp {
   }) async {
     int timestamp = DateTime.now().millisecondsSinceEpoch;
     var data = {
-      'build': '2001100',
+      'build': 2001100,
       'buvid': buvid,
       'c_locale': 'zh_CN',
       'channel': 'master',
       'cid': cid,
       // if (deviceTouristId != null) 'device_tourist_id': deviceTouristId,
-      'disable_rcmd': '0',
+      'disable_rcmd': 0,
       'gee_challenge': ?geeChallenge,
       'gee_seccode': ?geeSeccode,
       'gee_validate': ?geeValidate,
@@ -116,7 +116,7 @@ class LoginHttp {
       's_locale': 'zh_CN',
       'statistics': Constants.statistics,
       'tel': tel,
-      'ts': (timestamp ~/ 1000).toString(),
+      'ts': timestamp ~/ 1000,
     };
     AppSign.appSign(data);
 
@@ -196,9 +196,9 @@ class LoginHttp {
       RSA(publicKey: publicKey),
     ).encrypt(salt + password).base64;
 
-    Map<String, String> data = {
+    final data = {
       'bili_local_id': deviceId,
-      'build': '2001100',
+      'build': 2001100,
       'buvid': buvid,
       'c_locale': 'zh_CN',
       'channel': 'master',
@@ -207,7 +207,7 @@ class LoginHttp {
       //'device_meta': '',
       'device_name': 'vivo',
       'device_platform': 'Android14vivo',
-      'disable_rcmd': '0',
+      'disable_rcmd': 0,
       'dt': Uri.encodeComponent(
         Encrypter(
           RSA(publicKey: publicKey),
@@ -226,7 +226,7 @@ class LoginHttp {
       'recaptcha_token': ?recaptchaToken,
       's_locale': 'zh_CN',
       'statistics': Constants.statistics,
-      'ts': (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
+      'ts': DateTime.now().millisecondsSinceEpoch ~/ 1000,
       'username': username,
     };
     AppSign.appSign(data);
@@ -265,9 +265,9 @@ class LoginHttp {
     required String key,
   }) async {
     dynamic publicKey = RSAKeyParser().parse(key);
-    Map<String, String> data = {
+    final data = {
       'bili_local_id': deviceId,
-      'build': '2001100',
+      'build': 2001100,
       'buvid': buvid,
       'c_locale': 'zh_CN',
       'captcha_key': captchaKey,
@@ -280,7 +280,7 @@ class LoginHttp {
       'device_name': 'vivo',
       'device_platform': 'Android14vivo',
       // 'device_tourist_id': '',
-      'disable_rcmd': '0',
+      'disable_rcmd': 0,
       'dt': Uri.encodeComponent(
         Encrypter(
           RSA(publicKey: publicKey),
@@ -294,7 +294,7 @@ class LoginHttp {
       's_locale': 'zh_CN',
       'statistics': Constants.statistics,
       'tel': tel,
-      'ts': (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
+      'ts': DateTime.now().millisecondsSinceEpoch ~/ 1000,
     };
     AppSign.appSign(data);
     var res = await Request().post(
@@ -367,8 +367,8 @@ class LoginHttp {
     String? recaptchaToken,
     required String refererUrl,
   }) async {
-    Map<String, String> data = {
-      'disable_rcmd': '0',
+    final data = {
+      'disable_rcmd': 0,
       'sms_type': smsType ?? 'loginTelCheck',
       'tmp_code': tmpCode,
       'gee_challenge': ?geeChallenge,
@@ -410,7 +410,7 @@ class LoginHttp {
     required String captchaKey,
     required String refererUrl,
   }) async {
-    Map<String, String> data = {
+    final data = {
       'type': type ?? 'loginTelCheck',
       'code': code,
       'tmp_code': tmpCode,
@@ -446,9 +446,9 @@ class LoginHttp {
   static Future oauth2AccessToken({
     required String code,
   }) async {
-    Map<String, String> data = {
+    final data = {
       'appkey': Constants.appKey,
-      'build': '2001100',
+      'build': 2001100,
       'buvid': buvid,
       // 'c_locale': 'zh_CN',
       // 'channel': 'master',
@@ -457,14 +457,14 @@ class LoginHttp {
       // 'device_id': deviceId,
       // 'device_name': 'vivo',
       // 'device_platform': 'Android14vivo',
-      'disable_rcmd': '0',
+      'disable_rcmd': 0,
       'grant_type': 'authorization_code',
       'local_id': buvid,
       'mobi_app': 'android_hd',
       'platform': 'android',
       // 's_locale': 'zh_CN',
       // 'statistics': Constants.statistics,
-      'ts': (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
+      'ts': DateTime.now().millisecondsSinceEpoch ~/ 1000,
     };
     AppSign.appSign(data);
     var res = await Request().post(
